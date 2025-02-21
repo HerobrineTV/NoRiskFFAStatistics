@@ -1,0 +1,274 @@
+.navbar {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    background-color: var(--navbar-background);
+    backdrop-filter: blur(10px);
+    z-index: 100;
+  }
+  
+.navbar a {
+    font-family: 'Kisah Horor Sobat', sans-serif;
+}
+
+.navbar-logo {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: var(--bright-text-color);
+    font-family: var(--main-font-family);
+    font-weight: var(--main-font-weight-black);
+    font-style: normal;
+    font-size: 25px;
+  }
+  
+.navbar-logo img {
+    height: 60px;
+    width: 60px;
+    margin-right: 20px;
+}
+  
+  
+.navbar-center {
+    display: flex;
+    flex: 1;
+    justify-content: center;
+}
+
+.navbar-links {
+    list-style: none;
+    display: flex;
+    gap: 50px;
+    margin-left: -4vw;
+    padding: 0;
+}
+
+.navbar-links li a {
+    color: var(--text-color);
+    font-family: var(--main-font-family);
+    font-weight: var(--main-font-weight-regular);
+    font-style: normal;
+    text-decoration: none;
+    font-size: 20px;
+    position: relative;
+    padding: 5px 0;
+    transition: color 0.3s;
+}
+
+.navbar-links li a::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: var(--text-color);
+    visibility: hidden;
+    transform: scaleX(0);
+    transition: all 0.3s ease-in-out;
+}
+
+.navbar-links li a:hover::before {
+    visibility: visible;
+    transform: scaleX(1);
+}
+
+.navbar-links li a:hover {
+    color: var(--secondary-color);
+}
+
+.navbar-discord button {
+    background: none;
+    border: 1px solid white;
+    color: var(--bright-text-color);
+    font-family: var(--main-font-family);
+    font-weight: var(--main-font-weight-black);
+    font-style: normal;
+    font-size: 20px;
+    padding: 15px 25px;
+    border-radius: 5px;
+    margin-right: 2vw;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.navbar-discord button:hover {
+    background-color: white;
+    color: black;
+}
+
+.navbar .sw-button {
+    background: none;
+    border: 1px solid white;
+    color: var(--bright-text-color);
+    font-family: var(--main-font-family);
+    font-weight: var(--main-font-weight-black);
+    font-style: normal;
+    font-size: 20px;
+    padding: 15px 25px;
+    border-radius: 5px;
+    margin-right: 2vw;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+    text-decoration: none;
+    display: block;
+}
+
+.navbar .sw-button:hover {
+    background-color: white;
+    color: black;
+}
+
+.hamburger {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 30px;
+    color: var(--bright-text-color);
+    cursor: pointer;
+    position: absolute; /* Position it absolutely */
+    top: -10px; /* Align it to the top */
+    right: -120px; /* Align it to the right */
+    z-index: 101; /* Ensure it is above other elements */
+}
+
+@media (max-width: 1420px) {
+    .navbar-a a {
+        font-size: 10em;
+    }
+
+    .navbar-links li a {
+        font-size: 1em;
+        padding: 5px 0;
+    }
+
+    .navbar-links {
+        gap: 4vw;
+    }
+
+    .navbar-logo {
+        font-size: 1.2em;
+    } 
+}
+
+@media (max-width: 1200px) {
+    .navbar-a a {
+        font-size: 10em;
+    }
+
+    .navbar-links li a {
+        font-size: 1em;
+        padding: 5px 0;
+    }
+
+    .navbar-links {
+        gap: 3vw;
+    }
+
+    .navbar-logo {
+        font-size: 1.2em;
+    } 
+}
+
+@media (max-width: 1000px) {
+    .navbar-a a {
+        font-size: 10em;
+    }
+
+    .navbar-links li a {
+        font-size: .9em;
+        padding: 5px 0;
+    }
+
+    .navbar-links {
+        gap: 2vw;
+    }
+
+    .navbar-logo {
+        font-size: 1em;
+    } 
+}
+
+@media (max-width: 768px) {
+    .hamburger {
+        display: block;
+        right: 30px;
+        max-width: 10px;
+        transition: none;
+    }
+
+    .hamburger:hover {
+        background: none;
+    }
+
+    .navbar-center {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .navbar-center.open {
+        display: flex;
+    }
+
+    .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+        padding-left: 20px;
+        max-width: 90vw;
+    }
+
+    .navbar-logo {
+        font-size: 25px;
+    } 
+
+    .navbar-links {
+        flex-direction: column;
+        width: 100%;
+        gap: 10px;
+        position: relative;
+        left: 30px;
+    }
+
+    .navbar-links li {
+        margin-bottom: 10px;
+    }
+
+    .navbar-links li a {
+        font-size: 18px; /* Smaller font size for mobile */
+        margin-bottom: 10px;
+    }
+
+    .navbar a {
+        margin-bottom: 10px;
+    }
+
+    .navbar-discord {
+        width: 100%;
+    }
+
+    .navbar-logo img {
+        height: 50px; /* Adjust logo size for mobile */
+        width: 50px;
+    }
+
+    .navbar .sw-button {
+        font-size: 16px; /* Adjust font size for smaller screens */
+        padding: 10px 20px; /* Adjust padding for smaller screens */
+        right: 30px;
+        width: auto; /* Adjust width */
+        position: fixed; /* Fix position */
+        bottom: 10px; /* Position from bottom */
+        z-index: 100; /* Ensure it is above other elements */
+        display: none;
+    }
+
+    .navbar .sw-button.open {
+        display: block;
+    }
+}

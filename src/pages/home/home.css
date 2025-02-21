@@ -1,0 +1,174 @@
+.page-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .search-container {
+    margin-bottom: 20px;
+  }
+  
+  .search-wrapper {
+    display: flex;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+  
+  .search-input {
+    flex-grow: 1;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px 0 0 4px;
+  }
+  
+  .search-button {
+    padding: 10px 15px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 0 4px 4px 0;
+    cursor: pointer;
+  }
+  
+  .filtergroup-buttons {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  
+  .filtergroup-buttons button {
+    margin: 0 5px;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #363535;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .filtergroup-buttons button:hover {
+    background-color: #e0e0e0;
+  }
+  
+  .filtergroup-lists {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap: 20px;
+  }
+  
+  .list-container {
+    flex-basis: calc(30%);
+    margin-bottom: 20px;
+    background-color: #414141;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    color: white;
+  }
+  
+  .list-container h2 {
+    text-align: center;
+    margin: 0;
+    padding: 30px;
+    background-color: #43505e;
+    color: white;
+    font-size: 1.2em;
+  }
+  
+  .list-container ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .list-container li {
+    padding: 12px 15px;
+    border-bottom: 1px solid #414141;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: background-color 0.2s;
+  }
+  
+  .list-container li:last-child {
+    border-bottom: none;
+  }
+  
+  .list-container li:hover {
+    background-color: #6b6b6b;
+  }
+  
+  .list-container .rank {
+    font-weight: bold;
+    margin-right: 10px;
+    min-width: 25px;
+  }
+  
+  .list-container .player-id {
+    flex-grow: 1;
+    margin-right: 10px;
+  }
+  
+  .list-container .stat-value {
+    font-weight: bold;
+    margin-right: 10px;
+    color: #28a745;
+  }
+  
+  .list-container .additional-info {
+    font-size: 0.8em;
+    color: #6c757d;
+  }
+  
+  @media (max-width: 768px) {
+    .filtergroup-lists {
+      flex-direction: column;
+    }
+  
+    .list-container {
+      flex-basis: 100%;
+    }
+  }
+
+  .player-item {
+    position: relative;
+  }
+  
+  .player-hover {
+    display: none;
+    position: absolute;
+    background-color: #6c757d;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
+    top: 100%; /* This will position the hover element just below the player item */
+    left: 0; /* Align with the left edge of the player item */
+    z-index: 1;
+    color: white;
+    margin-top: 5px; /* Add a small gap between the player item and the hover element */
+  }
+  
+  .player-item:hover .player-hover {
+    display: block;
+  }
+  
+  .player-info {
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+  }
+
+  .player-head {
+    margin-right: 10px;
+    border-radius: 3px;
+  }
+
+  h2 {
+    text-align: center;
+  }

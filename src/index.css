@@ -1,0 +1,26 @@
+
+:root {
+  --main-font-family: "Roboto", sans-serif;
+  --main-font-weight-regular: 400;
+  --main-font-weight-black: 900;
+  --primary-color: rgb(10, 13, 16);
+  --secondary-color: #0077E4;
+  --tertiary-color: rgb(0, 27, 51) ;
+  --bright-text-color: rgb(238, 240, 244);
+  --text-color: rgb(179, 189, 204);
+  --text-special-color: rgb(151, 205, 255);
+  --border-color: rgb(0, 162, 255);
+  --font-color: #fff;
+
+  --navbar-background: rgba(7, 9, 11, 0.6)/*backdrop-filter: blur(10px);*/;
+}
+
+@media (max-width: 768px) {
+#root {
+  max-width: 100vw;
+}
+}
+
+
+
+
