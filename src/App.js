@@ -17,7 +17,7 @@ const RedirectToDefaultLang = () => {
   let location = useLocation();
   const pathParts = location.pathname.split('/');
   if (pathParts.length < 2 || pathParts[1] === "") {
-    return <Navigate to="/en/start" replace />;
+    return <Navigate to="/home" replace />;
   }
   return null;
 };
