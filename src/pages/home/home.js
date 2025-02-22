@@ -46,6 +46,7 @@ function Home() {
               });
             }}
             onMouseLeave={() => setHoverInfo(null)}
+            onClick={() => navigate(`/player/${item.playerId}`)}
           >
             <div className="player-info">
               <span className="rank">{index + 1}</span>

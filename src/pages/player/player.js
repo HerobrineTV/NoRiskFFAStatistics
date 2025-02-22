@@ -429,8 +429,8 @@ const PlayerPage = () => {
   };
 
   if (loading) return <div className="loading">Loading...</div>;
-  if (error) return <div className="error">{error}</div>;
-  if (!player) return <div className="error">Player not found</div>;
+  if (error) return <div className="error"><br/><br/><br/>Player not found</div>;
+  if (!player) return <div className="error"><br/><br/><br/>Player not found</div>;
 
   return (
     <div className="player-page">
@@ -439,7 +439,7 @@ const PlayerPage = () => {
         <br/>
       <div className="player-header">
         <img src={`https://crafatar.com/avatars/${player.uuid}?size=48&overlay`} alt={`${player.name} headshot`} className="player-headshot" />
-        <h1>{player.name} ({player.uuid})</h1>
+        <h1>{player.name}</h1>
       </div>
       <div className="player-content">
         <div className="player-main-info">
@@ -452,6 +452,7 @@ const PlayerPage = () => {
             <div className="stat-item"><span>Current Killstreak:</span> {player.currentKillStreak} <small>(Rank: {getPlayerRank('currentKillStreak')})</small></div>
             <div className="stat-item"><span>Highest Killstreak:</span> {player.highestKillStreak} <small>(Rank: {getPlayerRank('highestKillStreak')})</small></div>
             <div className="stat-item"><span>Current Bounty:</span> {player.bounty} <small>(Rank: {getPlayerRank('bounty')})</small></div>
+            <div className="stat-item"><small>{player.uuid}</small></div>
           </div>
         </div>
         <div className="player-additional-stats">
