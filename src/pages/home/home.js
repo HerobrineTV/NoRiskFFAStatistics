@@ -7,6 +7,7 @@ function Home() {
   const navigate = useNavigate();
   const { killsList, bountyList, xpList, killstreakList, deathsList, kdList, usernames } = useFetchData();
 
+  const [expandedList, setExpandedList] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [activeList, setActiveList] = useState('kills');
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
@@ -16,10 +17,21 @@ function Home() {
     const handleResize = () => {
       setIsMobile(window.innerWidth <= 768);
     };
-
+  
+    const handleClickOutside = (event) => {
+      if (expandedList && !event.target.closest('.list-container')) {
+        setExpandedList(null);
+      }
+    };
+  
     window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
+    document.addEventListener('click', handleClickOutside);
+  
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      document.removeEventListener('click', handleClickOutside);
+    };
+  }, [expandedList]);
 
   const handleSearch = (event) => {
     setSearchTerm(event.target.value);
@@ -30,24 +42,26 @@ function Home() {
     navigate(`/player/${searchTerm}`);
   };
 
-  const renderList = (list, title) => (
-    <div className="list-container">
-      <h2>{title}</h2>
-      <ul>
-        {list.slice(0, 10).map((item, index) => (
-          <li 
-            key={item.playerId} 
-            className="player-item"
-            onMouseEnter={(e) => {
-              const rect = e.currentTarget.getBoundingClientRect();
-              setHoverInfo({
-                item,
-                position: { top: rect.top, left: rect.right + 10 }
-              });
-            }}
-            onMouseLeave={() => setHoverInfo(null)}
-            onClick={() => navigate(`/player/${item.playerId}`)}
-          >
+  const renderList = (list, title) => {
+    const isExpanded = expandedList === title;
+    return (
+      <div className={`list-container ${isExpanded ? 'expanded' : ''}`}>
+        <h2 onClick={() => setExpandedList(isExpanded ? null : title)}>{title}</h2>
+        <ul>
+          {list.slice(0, isExpanded ? 100 : 10).map((item, index) => (
+            <li 
+              key={item.playerId} 
+              className="player-item"
+              onMouseEnter={(e) => {
+                const rect = e.currentTarget.getBoundingClientRect();
+                setHoverInfo({
+                  item,
+                  position: { top: rect.top, left: rect.right + 10 }
+                });
+              }}
+              onMouseLeave={() => setHoverInfo(null)}
+              onClick={() => navigate(`/player/${item.playerId}`)}
+            >
             <div className="player-info">
               <span className="rank">{index + 1}</span>
               <img 
@@ -74,6 +88,7 @@ function Home() {
       </ul>
     </div>
   );
+};
 
   const renderHoverInfo = () => {
     if (!hoverInfo) return null;
