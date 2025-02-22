@@ -51,7 +51,7 @@ function Home() {
             <div className="player-info">
               <span className="rank">{index + 1}</span>
               <img 
-                src={`https://crafthead.net/avatar/${item.playerId}`} 
+                src={`https://crafatar.com/avatars/${item.playerId}?size=48&overlay`} 
                 alt="Player head" 
                 className="player-head"
                 width="24" 
