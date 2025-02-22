@@ -1,144 +1,197 @@
 .player-page {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-    font-family: Arial, sans-serif;
-    color: #333;
-  }
-  
-  .player-header {
-    display: flex;
-    align-items: center;
-    margin-bottom: 20px;
-  }
-  
-  .player-header h1 {
-    margin-left: 15px;
-    font-size: 2.5em;
-  }
-  
-  .player-headshot {
-    border-radius: 5px;
-  }
-  
-  .player-content {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-  }
-  
-  .player-main-info {
-    flex: 1;
-    min-width: 300px;
-    background-color: #414141;
-    border-radius: 10px;
-    padding: 20px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    color: white;
-  }
-  
-  .player-skin-render {
-    display: block;
-    margin: 0 auto 20px;
-    max-width: 100%;
-    height: auto;
-  }
-  
-  .player-stats .stat-item {
-    margin-bottom: 10px;
-    font-size: 1.1em;
-  }
-  
-  .player-stats .stat-item span {
-    font-weight: bold;
-    margin-right: 5px;
-  }
-  
-  .player-stats .stat-item small {
-    color: #a3a3a3;
-    font-size: 0.8em;
-  }
-  
-  .player-additional-stats {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    flex: 1;
-    min-width: 300px;
-    background-color: #414141;
-    border-radius: 10px;
-    padding: 20px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-  }
-  
-  .player-additional-stats h2 {
-    margin-bottom: 15px;
-    font-size: 1.5em;
-  }
-  
-  .stats-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 15px;
-  }
-  
-  .stats-grid .stat-item {
-    background-color: #fff;
-    padding: 10px;
-    border-radius: 5px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-  }
-  
-  .stats-grid .stat-name {
-    font-weight: bold;
-    margin-right: 5px;
-  }
-  
-  .loading, .error {
-    text-align: center;
-    font-size: 1.2em;
-    margin-top: 50px;
-  }
-  
-  @media (max-width: 768px) {
-    .player-content {
-      flex-direction: column;
-    }
-  }
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  color: #333;
+}
 
-  .Hero-Buttons {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin-top: 20px;
-    width: 100%;
+.player-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.player-header h1 {
+  margin-left: 15px;
+  font-size: 2.5em;
+}
+
+.player-headshot {
+  border-radius: 5px;
+}
+
+.player-content {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.player-main-info, .player-additional-stats {
+  flex: 1;
+  min-width: 300px;
+  background-color: #414141;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  color: white;
+}
+
+.player-skin-render {
+  display: block;
+  margin: 0 auto 20px;
+  max-width: 100%;
+  height: auto;
+}
+
+.player-stats .stat-item {
+  margin-bottom: 10px;
+  font-size: 1.1em;
+}
+
+.player-stats .stat-item span {
+  font-weight: bold;
+  margin-right: 5px;
+}
+
+.player-stats .stat-item small {
+  color: #a3a3a3;
+  font-size: 0.8em;
+}
+
+.player-additional-stats {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.player-additional-stats h2 {
+  margin-bottom: 15px;
+  font-size: 1.5em;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 15px;
+}
+
+.stats-grid .stat-item {
+  background-color: #fff;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.stats-grid .stat-name {
+  font-weight: bold;
+  margin-right: 5px;
+}
+
+.loading, .error {
+  text-align: center;
+  font-size: 1.2em;
+  margin-top: 50px;
+}
+
+.Hero-Buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 20px 0;
+  width: 100%;
+}
+
+.Hero-Buttons button {
+  display: flex;
+  align-items: center;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #fff;
+  background-color: #4a4a4a;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.Hero-Buttons button:hover {
+  background-color: #666;
+}
+
+.Hero-Buttons button:active {
+  background-color: #333;
+}
+
+.hero-image {
+  width: 40px;
+  height: 40px;
+  margin-right: 10px;
+}
+
+.Hero-Items {
+  color: white;
+}
+
+.hero-abilities {
+  margin-top: 20px;
+}
+
+.ability {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 15px;
+}
+
+.ability-image {
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
+  top: -8px;
+  position: relative;
+  background-color: #797878;
+  border-radius: 4px;
+}
+
+.ability-content {
+  flex: 1;
+}
+
+.ability h4 {
+  margin: 0;
+  display: flex;
+  align-items: center;
+}
+
+.upgrade {
+  display: flex;
+  align-items: center;
+  margin-left: 20px;
+  margin-top: 5px;
+}
+
+.upgrade-image {
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
+  background-color: #797878;
+  border-radius: 4px;
+}
+
+@media (max-width: 768px) {
+  .player-content {
+    flex-direction: column;
   }
-  
-  .Hero-Buttons {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    margin-top: 20px;
-    width: 100%;
-  }
-  
-  .Hero-Buttons button {
-    padding: 10px 20px;
-    font-size: 16px;
-    font-weight: bold;
-    color: #fff;
-    background-color: #4a4a4a;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .Hero-Buttons button:hover {
-    background-color: #666;
-  }
-  
-  .Hero-Buttons button:active {
-    background-color: #333;
-  }
+}
+
+.Hero-Buttons {
+  margin-bottom: 20px;
+}
+
+.Hero-Buttons button {
+  margin-right: 10px;
+  padding: 5px 10px;
+}
