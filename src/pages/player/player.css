@@ -195,3 +195,24 @@
   margin-right: 10px;
   padding: 5px 10px;
 }
+
+.upgrade {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.upgrade-column {
+  flex: 1;
+  align-items: center;
+}
+
+.upgrade-column:first-child {
+  flex: 2;
+}
+
+.upgrade-image {
+  width: 24px;
+  height: 24px;
+  margin-right: 10px;
+}

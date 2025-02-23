@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useFetchData, searchPlayer } from '../../utils/api';
+import { useFetchData, getFullLeaderboardHome } from '../../utils/api';
 import './home.css';
 
 function Home() {
@@ -12,6 +12,30 @@ function Home() {
   const [activeList, setActiveList] = useState('kills');
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
   const [hoverInfo, setHoverInfo] = useState(null);
+  const [fullLeaderboard, setFullLeaderboard] = useState({});
+  const [isLoadingFullLeaderboard, setIsLoadingFullLeaderboard] = useState(false);
+
+    // Process and limit the lists to 1000 entries
+    const processedLists = useMemo(() => {
+      const processList = (list) => list.slice(0, 1000);
+      return {
+        kills: processList(killsList),
+        deaths: processList(deathsList),
+        kd: processList(kdList),
+        bounty: processList(bountyList),
+        xp: processList(xpList),
+        killstreak: processList(killstreakList),
+      };
+    }, [killsList, deathsList, kdList, bountyList, xpList, killstreakList]);
+
+    useEffect(() => {
+      if (expandedList) {
+        const listType = expandedList.toLowerCase().replace(/\s+/g, '').replace('top', '');
+        if (!fullLeaderboard[listType] || fullLeaderboard[listType].length === 0) {
+          fetchFullLeaderboard(listType);
+        }
+      }
+    }, [expandedList, fullLeaderboard]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -33,8 +57,34 @@ function Home() {
     };
   }, [expandedList]);
 
+  useEffect(() => {
+    if (expandedList) {
+      const listType = expandedList.toLowerCase().replace(/\s+/g, '').replace('top', '');
+      fetchFullLeaderboard(listType);
+    }
+  }, [expandedList]);
+
   const handleSearch = (event) => {
     setSearchTerm(event.target.value);
+  };
+
+  const fetchFullLeaderboard = async (listType) => {
+    if (!fullLeaderboard[listType] || fullLeaderboard[listType].length === 0) {
+      setIsLoadingFullLeaderboard(true);
+      try {
+        const fullData = await getFullLeaderboardHome(listType);
+        if (fullData && fullData.length > 0) {
+          setFullLeaderboard(prevState => ({
+            ...prevState,
+            [listType]: fullData
+          }));
+        }
+      } catch (error) {
+        console.error("Error fetching full leaderboard:", error);
+      } finally {
+        setIsLoadingFullLeaderboard(false);
+      }
+    }
   };
   
   const handleSearchSubmit = (event) => {
@@ -44,11 +94,34 @@ function Home() {
 
   const renderList = (list, title) => {
     const isExpanded = expandedList === title;
+    const listType = title.toLowerCase().replace(/\s+/g, '').replace('top', '');
+    let displayList = isExpanded ? (fullLeaderboard[listType] || list) : list.slice(0, 10);
+
+    // Ensure displayList is always an array
+    if (!Array.isArray(displayList)) {
+      console.error(`DisplayList is not an array for ${title}:`, displayList);
+      displayList = [];
+    }
+  
+    const getTrophyEmoji = (index) => {
+      if (index === 0) return '🥇';
+      if (index === 1) return '🥈';
+      if (index === 2) return '🥉';
+      return '';
+    };
+  
     return (
       <div className={`list-container ${isExpanded ? 'expanded' : ''}`}>
-        <h2 onClick={() => setExpandedList(isExpanded ? null : title)}>{title}</h2>
+        <h2 onClick={() => {
+          if (isExpanded) {
+            setExpandedList(null);
+          } else {
+            setExpandedList(title);
+            fetchFullLeaderboard(listType);
+          }
+        }}>{title}</h2>
         <ul>
-          {list.slice(0, isExpanded ? 100 : 10).map((item, index) => (
+          {displayList.map((item, index) => (
             <li 
               key={item.playerId} 
               className="player-item"
@@ -62,33 +135,38 @@ function Home() {
               onMouseLeave={() => setHoverInfo(null)}
               onClick={() => navigate(`/player/${item.playerId}`)}
             >
-            <div className="player-info">
-              <span className="rank">{index + 1}</span>
-              <img 
-                src={`https://crafatar.com/avatars/${item.playerId}?size=48&overlay`} 
-                alt="Player head" 
-                className="player-head"
-                width="24" 
-                height="24"
-              />
-              <span className="player-id">
-                {usernames[item.playerId] || "Loading Username..."}
-              </span>
-              <span className="stat-value">
-                {title === 'Top Kills' ? item.kills : 
-                 title === 'Top Deaths' ? item.deaths :
-                 title === 'Top K/D' ? item.kd.toFixed(2) :
-                 title === 'Top XP' ? item.xp :
-                 title === 'Top Killstreaks' ? item.highestKillStreak :
-                 item.bounty}
-              </span>
-            </div>
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
-};
+              <div className="player-info">
+                <span className="rank">
+                  {getTrophyEmoji(index) || `${index + 1}`}
+                </span>
+                <img 
+                  src={`https://crafatar.com/avatars/${item.playerId}?size=48&overlay`} 
+                  alt="Player head" 
+                  className="player-head"
+                  width="24" 
+                  height="24"
+                />
+                <span className="player-id">
+                  {usernames[item.playerId] || "Loading Username..."}
+                </span>
+                <span className="stat-value">
+                  {title === 'Top Kills' ? item.kills : 
+                   title === 'Top Deaths' ? item.deaths :
+                   title === 'Top K/D' ? item.kd.toFixed(2) :
+                   title === 'Top XP' ? item.xp :
+                   title === 'Top Killstreaks' ? item.highestKillStreak :
+                   item.bounty}
+                </span>
+              </div>
+            </li>
+          ))}
+        </ul>
+        {isExpanded && isLoadingFullLeaderboard && (
+          <p>Loading more entries...</p>
+        )}
+      </div>
+    );
+  };
 
   const renderHoverInfo = () => {
     if (!hoverInfo) return null;
@@ -145,12 +223,12 @@ function Home() {
         </div>
       )}
       <div className="filtergroup-lists">
-        {(!isMobile || activeList === 'kills') && renderList(killsList, 'Top Kills')}
-        {(!isMobile || activeList === 'deaths') && renderList(deathsList, 'Top Deaths')}
-        {(!isMobile || activeList === 'kd') && renderList(kdList, 'Top K/D')}
-        {(!isMobile || activeList === 'bounty') && renderList(bountyList, 'Top Current Bounties')}
-        {(!isMobile || activeList === 'xp') && renderList(xpList, 'Top XP')}
-        {(!isMobile || activeList === 'killstreak') && renderList(killstreakList, 'Top Killstreaks')}
+        {(!isMobile || activeList === 'kills') && renderList(processedLists.kills, 'Top Kills')}
+        {(!isMobile || activeList === 'deaths') && renderList(processedLists.deaths, 'Top Deaths')}
+        {(!isMobile || activeList === 'kd') && renderList(processedLists.kd, 'Top K/D')}
+        {(!isMobile || activeList === 'bounty') && renderList(processedLists.bounty, 'Top Current Bounties')}
+        {(!isMobile || activeList === 'xp') && renderList(processedLists.xp, 'Top XP')}
+        {(!isMobile || activeList === 'killstreak') && renderList(processedLists.killstreak, 'Top Killstreaks')}
       </div>
       {renderHoverInfo()}
     </div>
